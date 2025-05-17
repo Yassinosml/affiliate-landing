@@ -172,3 +172,27 @@ Version: 1.0.0
 Last Updated: 2025-05-17 19:47:46
 Created by: Yassinosml
 `);
+// Countdown Timer
+document.addEventListener('DOMContentLoaded', () => {
+    const countdownEl = document.querySelector('.countdown');
+    const expireDate = new Date(countdownEl.dataset.expire);
+    
+    function updateCountdown() {
+        const now = new Date();
+        const diff = expireDate - now;
+        
+        if (diff <= 0) {
+            countdownEl.textContent = 'EXPIRED';
+            return;
+        }
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        countdownEl.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+});
